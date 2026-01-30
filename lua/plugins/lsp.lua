@@ -11,7 +11,17 @@ return {
         -- 2. Setup standard LSP capabilities
         local lspconfig = require("lspconfig")
         local capabilities = require('lspconfig').util.default_config.capabilities
-
+        
+        local border = {
+            {"╭", "FloatBorder"},
+            {"─", "FloatBorder"},
+            {"╮", "FloatBorder"},
+            {"│", "FloatBorder"},
+            {"╯", "FloatBorder"},
+            {"─", "FloatBorder"},
+            {"╰", "FloatBorder"},
+            {"│", "FloatBorder"},
+        }
         -- 3. Setup Mason-LSPConfig (The bridge)
         require("mason-lspconfig").setup({
             -- A list of servers to automatically install

@@ -21,10 +21,20 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
-      window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-      },
+     window = {
+  completion = {
+    -- Use a solid border for a cleaner look
+    border = "rounded", 
+    -- Link the border color to the menu color (so it looks seamless)
+    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+    scrollbar = false,
+  },
+  documentation = {
+    border = "rounded",
+    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+    scrollbar = false,
+  },
+},
       mapping = cmp.mapping.preset.insert({
         -- SCROLL DOCS
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),

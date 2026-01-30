@@ -9,9 +9,17 @@ vim.opt.smartindent = true    -- Auto-indent new lines
 
 -- 2. UI Behavior
 vim.opt.number = true         -- Show line numbers
-vim.opt.relativenumber = true -- Show relative line numbers (optional, good for jumps)
+--vim.opt.relativenumber = true -- Show relative line numbers (optional, good for jumps)
 vim.opt.signcolumn = "yes"    -- Always show the sign column (prevents text shifting)
 vim.opt.wrap = false          -- Disable text wrapping (optional)
 
 -- 3. Clipboard
 vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
+-- Disable Swap Files (No more "ATTENTION" messages)
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
+
+-- Keep Undo history (Optional: saves undo history even after closing)
+-- If you don't want this either, set it to false.
+vim.opt.undofile = true
