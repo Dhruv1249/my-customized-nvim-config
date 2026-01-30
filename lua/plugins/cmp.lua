@@ -35,9 +35,19 @@ return {
         
         -- CLOSE MENU
         ["<C-e>"] = cmp.mapping.abort(),
+	-- 1. ENTER TO CONFIRM
+        ["<CR>"] = cmp.mapping.confirm({ select = true }), 
 
-        -- CONFIRM WITH TAB
-        ["<Tab>"] = cmp.mapping.confirm({ select = true }), 
+        -- 2. TAB TO CONFIRM
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            -- If menu is open, confirm selection
+            cmp.confirm({ select = true })
+          else
+            -- If menu is closed, just insert a Tab (indent)
+            fallback()
+          end
+        end, { "i", "s" }),
         
         -- NAVIGATE WITH ARROW KEYS (Standard behavior)
         ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
