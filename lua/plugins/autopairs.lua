@@ -10,7 +10,6 @@ return {
 			-- Inside {|} pressing Enter will properly expand and indent.
 		},
 	},
-
 	-- 2. HTML Autotag + The "Enter" Fix
 	{
 		"windwp/nvim-ts-autotag",
