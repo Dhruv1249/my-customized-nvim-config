@@ -1,33 +1,41 @@
 return {
+	-- 1. Ultimate Autopair (Replaces nvim-autopairs)
+	-- Solves the {} -> Enter indentation issue automatically
 	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = function()
-			require("nvim-autopairs").setup({
-				-- 1. STRICTLY DISABLE "Enter" key mapping to avoid indentation issues
-				map_cr = false,
-
-				-- 2. Check Treesitter to ensure we don't pair inside comments
-				check_ts = true,
-
-				-- 3. The "Type-over" behavior you want is enabled by default.
-				-- If you are inside `(|)` and type `)`, it jumps out to `()|`
-			})
-
-			-- If you want to automatically add `(` after selecting a function
-			-- from the autocomplete menu (e.g. `print|` -> `print(|)`), keep this line.
-			-- If you prefer to type the `(` yourself, delete these 3 lines.
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			local cmp = require("cmp")
-			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-		end,
+		"altermo/ultimate-autopair.nvim",
+		event = { "InsertEnter", "CmdlineEnter" },
+		branch = "v0.6", -- Recommended branch
+		opts = {
+			-- "fastwarp" and "newline" are enabled by default.
+			-- Inside {|} pressing Enter will properly expand and indent.
+		},
 	},
 
-	-- HTML Autotag (Simple & Standard)
-	-- Types <div> -> <div>|</div>
+	-- 2. HTML Autotag + The "Enter" Fix
 	{
 		"windwp/nvim-ts-autotag",
-		event = "InsertEnter", -- Load only when typing to save startup time
-		opts = {}, -- Default options are perfect for "simple" usage
+		event = "InsertEnter",
+		opts = {},
+		config = function()
+			require("nvim-ts-autotag").setup()
+
+			-- FIX: Auto-indent on Enter when inside tags like <div>|</div>
+			-- This checks if the cursor is between '>' and '</'
+			local function check_pair()
+				local line = vim.api.nvim_get_current_line()
+				local col = vim.api.nvim_win_get_cursor(0)[2]
+				-- Char before cursor is '>' and char after is '<' (start of closing tag)
+				return line:sub(col, col) == ">" and line:sub(col + 1, col + 1) == "<"
+			end
+
+			vim.keymap.set("i", "<CR>", function()
+				if check_pair() then
+					-- Magic: Enter -> Up -> Open new line (preserves indentation)
+					return "<CR><C-o>O"
+				end
+				-- Normal Enter behavior
+				return "<CR>"
+			end, { expr = true, noremap = true })
+		end,
 	},
 }
