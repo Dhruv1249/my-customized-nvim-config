@@ -23,3 +23,10 @@ vim.opt.writebackup = false
 -- Keep Undo history (Optional: saves undo history even after closing)
 -- If you don't want this either, set it to false.
 vim.opt.undofile = true
+
+-- Highlighting for the treesitter
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		pcall(vim.treesitter.start)
+	end,
+})
