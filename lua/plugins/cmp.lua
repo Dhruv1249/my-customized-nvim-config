@@ -13,8 +13,8 @@ return {
 	config = function()
 		require("supermaven-nvim").setup({
 			-- Set to true if you only want suggestions in the cmp menu
-			disable_inline_completion = false,
-			disable_keymaps = false,
+			disable_inline_completion = true,
+			disable_keymaps = true,
 		})
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
@@ -22,6 +22,9 @@ return {
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		cmp.setup({
+			experimental = {
+				ghost_text = true,
+			},
 			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
