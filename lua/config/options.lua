@@ -30,3 +30,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		pcall(vim.treesitter.start)
 	end,
 })
+
+--vim.opt.winblend = 100
+-- vim.opt.pumblend = 100

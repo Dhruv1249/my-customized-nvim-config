@@ -9,69 +9,74 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 		"rafamadriz/friendly-snippets",
 		"supermaven-inc/supermaven-nvim",
+		"onsails/lspkind.nvim",
 	},
+
 	config = function()
+		local cmp = require("cmp")
+		local luasnip = require("luasnip")
+		local lspkind = require("lspkind")
+
+		require("luasnip.loaders.from_vscode").lazy_load()
+
 		require("supermaven-nvim").setup({
-			-- Set to true if you only want suggestions in the cmp menu
 			disable_inline_completion = true,
 			disable_keymaps = true,
 		})
-		local cmp = require("cmp")
-		local luasnip = require("luasnip")
-
-		require("luasnip.loaders.from_vscode").lazy_load()
 
 		cmp.setup({
 			experimental = {
 				ghost_text = true,
 			},
+
 			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
 				end,
 			},
+
 			window = {
 				completion = {
-					-- Use a solid border for a cleaner look
 					border = "rounded",
-					-- Link the border color to the menu color (so it looks seamless)
-					winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+					--	winblend = 15, -- 👈 glossy glass (DO NOT go above ~25)
+					winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					scrollbar = false,
 				},
 				documentation = {
 					border = "rounded",
-					winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+					winblend = 10,
+					winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					scrollbar = false,
 				},
 			},
+
+			formatting = {
+				format = lspkind.cmp_format({
+					mode = "symbol_text",
+					maxwidth = 50,
+					ellipsis_char = "…",
+				}),
+			},
+
 			mapping = cmp.mapping.preset.insert({
-				-- SCROLL DOCS
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
-
-				-- TRIGGER COMPLETION MANUALLY
 				["<C-Space>"] = cmp.mapping.complete(),
-
-				-- CLOSE MENU
 				["<C-e>"] = cmp.mapping.abort(),
-				-- 1. ENTER TO CONFIRM
 				["<CR>"] = cmp.mapping.confirm({ select = true }),
 
-				-- 2. TAB TO CONFIRM
 				["<Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
-						-- If menu is open, confirm selection
 						cmp.confirm({ select = true })
 					else
-						-- If menu is closed, just insert a Tab (indent)
 						fallback()
 					end
 				end, { "i", "s" }),
 
-				-- NAVIGATE WITH ARROW KEYS (Standard behavior)
-				["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-				["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+				["<Up>"] = cmp.mapping.select_prev_item(),
+				["<Down>"] = cmp.mapping.select_next_item(),
 			}),
+
 			sources = cmp.config.sources({
 				{ name = "supermaven", priority = 100 },
 				{ name = "nvim_lsp" },
