@@ -9,3 +9,8 @@ vim.keymap.set("n", "<leader>rl", function()
 	-- Toggle the option (logic: if it's on, turn it off; if off, turn it on)
 	vim.opt.relativenumber = not vim.opt.relativenumber:get()
 end, { desc = "Toggle Relative Numbers" })
+
+vim.keymap.set({ "n", "v" }, "<Up>", "<nop>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<Down>", "<nop>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<Left>", "<nop>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<Right>", "<nop>", { silent = true })
