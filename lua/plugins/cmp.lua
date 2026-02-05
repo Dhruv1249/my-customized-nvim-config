@@ -20,13 +20,13 @@ return {
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		require("supermaven-nvim").setup({
-			disable_inline_completion = true,
+			disable_inline_completion = false,
 			disable_keymaps = true,
 		})
 
 		cmp.setup({
 			experimental = {
-				ghost_text = true,
+				ghost_text = false,
 			},
 
 			snippet = {
@@ -38,7 +38,6 @@ return {
 			window = {
 				completion = {
 					border = "rounded",
-					--	winblend = 15, -- 👈 glossy glass (DO NOT go above ~25)
 					winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					scrollbar = false,
 				},
@@ -63,15 +62,15 @@ return {
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
 				["<C-Space>"] = cmp.mapping.complete(),
 				["<C-e>"] = cmp.mapping.abort(),
-				["<CR>"] = cmp.mapping.confirm({ select = true }),
+				["<Tab>"] = cmp.mapping.confirm({ select = true }),
 
-				["<Tab>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.confirm({ select = true })
-					else
-						fallback()
-					end
-				end, { "i", "s" }),
+				--			["<Tab>"] = cmp.mapping(function(fallback)
+				--			if cmp.visible() then
+				--			cmp.confirm({ select = true })
+				--				else
+				--					fallback()
+				--	 	end
+				--			end, { "i", "s" }),
 
 				["<Up>"] = cmp.mapping.select_prev_item(),
 				["<Down>"] = cmp.mapping.select_next_item(),
