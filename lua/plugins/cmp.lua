@@ -21,7 +21,12 @@ return {
 
 		require("supermaven-nvim").setup({
 			disable_inline_completion = false,
-			disable_keymaps = true,
+			disable_keymaps = false,
+			keymaps = {
+				accept_suggestion = "<C-Right>",
+				clear_suggestion = "<C-]>",
+				accept_word = "<C-j>",
+			},
 		})
 
 		cmp.setup({
@@ -77,7 +82,6 @@ return {
 			}),
 
 			sources = cmp.config.sources({
-				{ name = "supermaven", priority = 100 },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 			}, {
