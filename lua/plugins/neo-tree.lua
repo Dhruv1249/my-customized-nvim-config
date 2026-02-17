@@ -35,8 +35,11 @@ keys = {
         },
       },
 	})
-      -- 3. Open Neo-tree automatically on startup
-    vim.cmd([[Neotree show]])
+      -- 3. Open Neo-tree automatically when opening a file (not a directory)
+    local arg = vim.fn.argv(0)
+    if arg ~= "" and vim.fn.isdirectory(arg) == 0 then
+      vim.cmd([[Neotree show]])
+    end
     -- 4. Custom Keybinding: Toggle Focus (File <-> Tree)
     vim.keymap.set("n", "<leader>e", function()
       if vim.bo.filetype == "neo-tree" then

@@ -1,6 +1,4 @@
 -- lua/config/options.lua
-print("OPTIONS FILE LOADED SUCCESSFULLY")
--- ... rest of your code ...
 -- 1. Indentation (VS Code Style)
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.shiftwidth = 2 -- Shift 2 spaces when tabbing
