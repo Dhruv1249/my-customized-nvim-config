@@ -12,10 +12,6 @@ return {
 			},
 
 			on_highlights = function(hl, c)
-				-- Line numbers (your tweak)
-				hl.LineNrAbove = { fg = "#ffffff" }
-				hl.LineNrBelow = { fg = "#ffffff" }
-
 				-- Float background (glassy)
 				hl.NormalFloat = {
 					bg = c.bg_dark,
