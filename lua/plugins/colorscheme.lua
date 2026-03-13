@@ -8,7 +8,7 @@ return {
 
 			styles = {
 				sidebars = "transparent",
-				floats = "dark", -- IMPORTANT: floats need a base for glass effect
+				-- IMPORTANT: floats need a base for glass effect
 			},
 
 			on_highlights = function(hl, c)

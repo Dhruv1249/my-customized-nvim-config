@@ -7,10 +7,21 @@ vim.keymap.set("n", "<leader>s", ":ASToggle<CR>", {desc = "Toggle Auto Save"})
 -- Toggle Relative Numbers
 vim.keymap.set("n", "<leader>rl", function()
 	-- Toggle the option (logic: if it's on, turn it off; if off, turn it on)
-	vim.opt.relativenumber = not vim.opt.relativenumber:get()
+vim.opt.relativenumber = not vim.opt.relativenumber:get()
 end, { desc = "Toggle Relative Numbers" })
 
 vim.keymap.set({ "n", "v" }, "<Up>", "<nop>", { silent = true })
 vim.keymap.set({ "n", "v" }, "<Down>", "<nop>", { silent = true })
 vim.keymap.set({ "n", "v" }, "<Left>", "<nop>", { silent = true })
 vim.keymap.set({ "n", "v" }, "<Right>", "<nop>", { silent = true })
+
+-- Commenting with Ctrl+/
+vim.keymap.set("n", "<C-/>", "gcc", { desc = "Toggle Comment", remap = true })
+vim.keymap.set("v", "<C-/>", "gc", { desc = "Toggle Comment", remap = true })
+vim.keymap.set("n", "<C-_>", "gcc", { desc = "Toggle Comment", remap = true })
+vim.keymap.set("v", "<C-_>", "gc", { desc = "Toggle Comment", remap = true })
+
+-- Close buffer
+vim.keymap.set("n", "<C-w>", function()
+	require("mini.bufremove").delete(0, false)
+end, { desc = "Close buffer" })

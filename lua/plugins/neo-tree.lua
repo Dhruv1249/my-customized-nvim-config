@@ -15,7 +15,7 @@ keys = {
     require("neo-tree").setup({
 
 	close_if_last_window = true,
-      -- 1. Visual Settings
+      -- 1. Visual Setting
       window = {
         width = 30,
         mappings = {
