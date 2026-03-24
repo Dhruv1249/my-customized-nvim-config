@@ -25,3 +25,13 @@ vim.keymap.set("v", "<C-_>", "gc", { desc = "Toggle Comment", remap = true })
 vim.keymap.set("n", "<C-w>", function()
 	require("mini.bufremove").delete(0, false)
 end, { desc = "Close buffer" })
+
+-- Ctrl + A → Select All
+vim.keymap.set("n", "<C-a>", "ggVG$", { desc = "Select all" })
+
+-- Ctrl + C → Copy
+vim.keymap.set("v", "<C-S-c>", '"+y', { desc = "Copy to clipboard" })
+
+-- Ctrl + V → Paste
+vim.keymap.set("n", "<C-S-v>", '"+p', { desc = "Paste from clipboard" })
+vim.keymap.set("i", "<C-S-v>", '<C-r>+', { desc = "Paste in insert mode" })
