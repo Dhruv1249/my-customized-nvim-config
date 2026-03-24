@@ -8,7 +8,6 @@ return {
 
 			styles = {
 				sidebars = "transparent",
-				-- IMPORTANT: floats need a base for glass effect
 			},
 
 			on_colors = function(colors)
@@ -86,6 +85,12 @@ return {
 					fg = c.bg_dark,
 					bg = c.purple,
 				}
+
+				hl.NeoTreeNormal = { bg = "NONE" }
+				hl.NeoTreeNormalNC = { bg = "NONE" }
+				hl.NeoTreeEndOfBuffer = { bg = "NONE" }
+				hl.NeoTreeWinSeparator = { bg = "NONE" }
+				hl.NeoTreeVertSplit = { bg = "NONE" }
 			end,
 		},
 
@@ -97,15 +102,19 @@ return {
 			if not _G._matugen_theme_watcher then
 				local uv = vim.uv or vim.loop
 				_G._matugen_theme_watcher = uv.new_fs_event()
-				_G._matugen_theme_watcher:start(current_file_path, {}, vim.schedule_wrap(function()
-					vim.defer_fn(function()
-						-- Force a re-evaluation of the tokyonight config
-						package.loaded["tokyonight"] = nil
-						require("tokyonight").setup(opts)
-						vim.cmd.colorscheme("tokyonight")
-						print("Tokyonight updated with new dankcolors")
-					end, 100)
-				end))
+				_G._matugen_theme_watcher:start(
+					current_file_path,
+					{},
+					vim.schedule_wrap(function()
+						vim.defer_fn(function()
+							-- Force a re-evaluation of the tokyonight config
+							package.loaded["tokyonight"] = nil
+							require("tokyonight").setup(opts)
+							vim.cmd.colorscheme("tokyonight")
+							print("Tokyonight updated with new dankcolors")
+						end, 100)
+					end)
+				)
 			end
 		end,
 	},
