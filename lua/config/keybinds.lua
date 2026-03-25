@@ -35,3 +35,5 @@ vim.keymap.set("v", "<C-S-c>", '"+y', { desc = "Copy to clipboard" })
 -- Ctrl + V → Paste
 vim.keymap.set("n", "<C-S-v>", '"+p', { desc = "Paste from clipboard" })
 vim.keymap.set("i", "<C-S-v>", '<C-r>+', { desc = "Paste in insert mode" })
+
+vim.keymap.set("n", "<leader>md", ":RenderMarkdown toggle<CR>")
