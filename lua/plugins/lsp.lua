@@ -26,6 +26,8 @@ return {
 				"yamlls",
 			},
 
+      automatic_installation = true,
+
 			-- OLD: setup_handlers(...) -> REMOVED
 			-- NEW: handlers = { ... } inside setup()
 			handlers = {
@@ -57,6 +59,7 @@ return {
 			desc = "LSP actions",
 			callback = function(event)
 				local opts = { buffer = event.buf }
+        vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
 
 				vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", { buffer = event.buf, desc = "Hover info" })
 				vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", { buffer = event.buf, desc = "Go to definition" })
